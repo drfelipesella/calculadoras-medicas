@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Escala EFCA - Avaliação de Fenótipos</title>
+  <script>
+    function calcularEFCA() {
+      let respostas = [];
+      for (let i = 1; i <= 16; i++) {
+        let valor = parseInt(document.getElementById('q' + i).value);
+        if (i === 9) {
+          valor = 6 - valor; // inversão da pergunta 9
+        }
+        respostas.push(valor);
+      }
+
+      let resultados = {
+        emocional: respostas[1] + respostas[3] + respostas[6] + respostas[9],
+        hiperfagico: respostas[0] + respostas[2] + respostas[5],
+        hedonico: respostas[4] + respostas[7] + respostas[11] + respostas[13],
+        desorganizado: respostas[8] + respostas[10] + respostas[15],
+        compulsivo: respostas[12] + respostas[14]
+      };
+
+      function interpretar(valor, muito_baixo, baixo, medio, alto) {
+        if (valor < muito_baixo) return "Muito Baixo";
+        if (valor < baixo) return "Baixo";
+        if (valor < medio) return "Médio";
+        if (valor < alto) return "Alto";
+        return "Muito Alto";
+      }
+
+      let interpretacoes = {
+        emocional: interpretar(resultados.emocional, 9, 13, 14, 16),
+        hiperfagico: interpretar(resultados.hiperfagico, 6, 9, 10, 12),
+        hedonico: interpretar(resultados.hedonico, 12, 15, 16, 18),
+        desorganizado: interpretar(resultados.desorganizado, 5, 7, 8, 10),
+        compulsivo: interpretar(resultados.compulsivo, 4, 6, 7, 9)
+      };
+
+      document.getElementById("resultado").innerHTML = `
+        <h3>Resultados:</h3>
+        <ul>
+          <li><strong>Emocional:</strong> ${interpretacoes.emocional} (${resultados.emocional} pontos)</li>
+          <li><strong>Hiperfágico:</strong> ${interpretacoes.hiperfagico} (${resultados.hiperfagico} pontos)</li>
+          <li><strong>Hedônico:</strong> ${interpretacoes.hedonico} (${resultados.hedonico} pontos)</li>
+          <li><strong>Desorganizado:</strong> ${interpretacoes.desorganizado} (${resultados.desorganizado} pontos)</li>
+          <li><strong>Compulsivo:</strong> ${interpretacoes.compulsivo} (${resultados.compulsivo} pontos)</li>
+        </ul>
+      `;
+    }
+  </script>
+</head>
+<body>
+<h2>Escala EFCA - Avaliação de Fenótipos de Comportamento Alimentar</h2>
+<form id="efcaForm">
+
+  <p>1. Como até sentir-me muito cheio(a):
+    <select id="q1">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>2. Calmo minhas emoções com comida:
+    <select id="q2">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>3. Peço mais comida quando termino meu prato:
+    <select id="q3">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>4. Tenho o hábito de beliscar entre as refeições:
+    <select id="q4">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>5. Quando começo a comer algo que gosto muito, é difícil parar:
+    <select id="q5">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>6. Costumo comer mais de um prato nas refeições principais:
+    <select id="q6">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>7. Belisco entre refeições por emoções:
+    <select id="q7">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>8. Sinto vontade de comer ao ver ou cheirar comida:
+    <select id="q8">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>9. Tomo café da manhã todos os dias (inversão de pontuação):
+    <select id="q9">
+      <option value="5">Sempre</option>
+      <option value="4">Quase sempre</option>
+      <option value="3">Às vezes</option>
+      <option value="2">Raramente</option>
+      <option value="1">Nunca</option>
+    </select>
+  </p>
+
+  <p>10. Como quando estou com emoções negativas:
+    <select id="q10">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>11. Pulo refeições principais:
+    <select id="q11">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>12. Como algo que gosto mesmo sem fome:
+    <select id="q12">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>13. Como muita comida em pouco tempo:
+    <select id="q13">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>14. Como tudo quando é algo que gosto:
+    <select id="q14">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>15. Como muito rápido algo que gosto:
+    <select id="q15">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <p>16. Passo mais de 5h sem comer:
+    <select id="q16">
+      <option value="1">Nunca</option>
+      <option value="2">Raramente</option>
+      <option value="3">Às vezes</option>
+      <option value="4">Quase sempre</option>
+      <option value="5">Sempre</option>
+    </select>
+  </p>
+
+  <button type="button" onclick="calcularEFCA()">Calcular</button>
+</form>
+
+<div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+
+</body>
+</html>

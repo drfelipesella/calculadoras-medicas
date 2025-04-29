@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Escala de Sonolência de Epworth</title>
+  <script>
+    function calcularEpworth() {
+      let total = 0;
+      for (let i = 1; i <= 8; i++) {
+        total += parseInt(document.getElementById('q' + i).value);
+      }
+
+      let resultado = "";
+
+      if (total <= 9) {
+        resultado = "Nível de sonolência: Normal";
+      } else if (total <= 11) {
+        resultado = "Nível de sonolência: Sonolência leve";
+      } else if (total <= 15) {
+        resultado = "Nível de sonolência: Sonolência moderada";
+      } else {
+        resultado = "Nível de sonolência: Sonolência grave";
+      }
+
+      document.getElementById("resultado").innerHTML = `Pontuação Total: ${total} <br> ${resultado}`;
+    }
+  </script>
+</head>
+<body>
+<h2>Escala de Sonolência de Epworth</h2>
+<form id="epworthForm">
+  <p>1. Sentado lendo:
+    <select id="q1">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <p>2. Assistindo TV:
+    <select id="q2">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <p>3. Sentado, inativo em lugar público (ex: teatro, reunião):
+    <select id="q3">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <p>4. Passageiro de carro durante uma hora sem parada:
+    <select id="q4">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <p>5. Deitado à tarde para descansar:
+    <select id="q5">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <p>6. Sentado e conversando com alguém:
+    <select id="q6">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <p>7. Sentado calmamente após almoço sem álcool:
+    <select id="q7">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <p>8. No carro, parado por alguns minutos no trânsito:
+    <select id="q8">
+      <option value="0">Nenhuma chance de cochilar</option>
+      <option value="1">Pequena chance de cochilar</option>
+      <option value="2">Chance moderada de cochilar</option>
+      <option value="3">Grande chance de cochilar</option>
+    </select>
+  </p>
+
+  <button type="button" onclick="calcularEpworth()">Calcular</button>
+</form>
+
+<div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora HOMA-IR</title>
+  <script>
+    function calcularHOMA() {
+      const insulina = parseFloat(document.getElementById('insulina').value);
+      const glicose = parseFloat(document.getElementById('glicose').value);
+
+      if (isNaN(insulina) || isNaN(glicose) || insulina <= 0 || glicose <= 0) {
+        document.getElementById("resultado").innerHTML = "Por favor, insira valores válidos.";
+        return;
+      }
+
+      const homa = (insulina * glicose) / 405;
+      let interpretacao = "";
+
+      if (homa <= 2.5) {
+        interpretacao = "Sensibilidade normal à insulina.";
+      } else {
+        interpretacao = "Resistência insulínica provável.";
+      }
+
+      document.getElementById("resultado").innerHTML = `Resultado do HOMA-IR: ${homa.toFixed(2)}<br>${interpretacao}`;
+    }
+  </script>
+</head>
+<body>
+<h2>Calculadora HOMA-IR</h2>
+<form id="homaForm">
+  <p>Insulina de jejum (uU/mL): <input type="number" id="insulina" step="any"></p>
+  <p>Glicemia de jejum (mg/dL): <input type="number" id="glicose" step="any"></p>
+
+  <button type="button" onclick="calcularHOMA()">Calcular</button>
+</form>
+
+<div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+
+</body>
+</html>

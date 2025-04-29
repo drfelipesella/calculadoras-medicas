@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Calculadora STOP-Bang</title>
+  <script>
+    function calcularStopBang() {
+      let score = 0;
+      let respostas = {};
+
+      respostas.sexo = document.getElementById('sexo').value;
+      respostas.s = document.getElementById('s').value;
+      respostas.t = document.getElementById('t').value;
+      respostas.o = document.getElementById('o').value;
+      respostas.p = document.getElementById('p').value;
+      respostas.imc = document.getElementById('imc').value;
+      respostas.pescoco = document.getElementById('pescoco').value;
+      respostas.idade = document.getElementById('idade').value;
+      respostas.pressao = document.getElementById('pressao').value;
+
+      // Cada resposta "sim" soma 1 ponto
+      if (respostas.s === "sim") score++;
+      if (respostas.t === "sim") score++;
+      if (respostas.o === "sim") score++;
+      if (respostas.p === "sim") score++;
+      if (respostas.imc === "sim") score++;
+      if (respostas.pescoco === "sim") score++;
+      if (respostas.idade === "sim") score++;
+      if (respostas.pressao === "sim") score++;
+
+      // Conta quantos "sim" nas 4 primeiras perguntas (S, T, O, P)
+      let quatroPrimeiras = 0;
+      if (respostas.s === "sim") quatroPrimeiras++;
+      if (respostas.t === "sim") quatroPrimeiras++;
+      if (respostas.o === "sim") quatroPrimeiras++;
+      if (respostas.p === "sim") quatroPrimeiras++;
+
+      let risco = "";
+
+      // PRIMEIRO: Verificar se deve ser ALTO RISCO pelas 4 primeiras + fator adicional
+      if (quatroPrimeiras >= 2 && (respostas.sexo === "masculino" || respostas.imc === "sim" || respostas.pescoco === "sim")) {
+        risco = "Alto risco de Apneia Obstrutiva do Sono";
+      } else {
+        // CASO NÃO: Aplica avaliação normal do total de pontos
+        if (score <= 2) {
+          risco = "Baixo risco de Apneia Obstrutiva do Sono";
+        } else if (score >= 5) {
+          risco = "Alto risco de Apneia Obstrutiva do Sono";
+        } else {
+          risco = "Risco intermediário de Apneia Obstrutiva do Sono";
+        }
+      }
+
+      document.getElementById("resultado").innerHTML = `Pontuação: ${score}/8<br><strong>${risco}</strong>`;
+    }
+  </script>
+</head>
+<body>
+<h2>Calculadora STOP-Bang</h2>
+<form id="stopbangForm">
+  <p>Sexo:
+    <select id="sexo">
+      <option value="feminino">Feminino</option>
+      <option value="masculino">Masculino</option>
+    </select>
+  </p>
+  <p>Você ronca alto? (S) 
+    <select id="s">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+  <p>Você se sente cansado durante o dia? (T)
+    <select id="t">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+  <p>Alguém já observou você parar de respirar durante o sono? (O)
+    <select id="o">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+  <p>Você tem hipertensão? (P)
+    <select id="p">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+  <p>Seu IMC é maior que 35 kg/m²?
+    <select id="imc">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+  <p>Circunferência do pescoço é maior que 43 cm (homens) ou 41 cm (mulheres)?
+    <select id="pescoco">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+  <p>Idade acima de 50 anos?
+    <select id="idade">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+  <p>Pressão alta (diagnosticado ou em tratamento)?
+    <select id="pressao">
+      <option value="nao">Não</option>
+      <option value="sim">Sim</option>
+    </select>
+  </p>
+
+  <button type="button" onclick="calcularStopBang()">Calcular</button>
+</form>
+
+<div id="resultado" style="margin-top: 20px; font-weight: bold;"></div>
+
+</body>
+</html>
