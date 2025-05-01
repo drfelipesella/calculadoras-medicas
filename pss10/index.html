@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Escala de Estresse Percebido (PSS-10)</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+    h1 { text-align: center; color: #2c3e50; }
+    select { margin: 10px 0; width: 100%; padding: 10px; font-size: 16px; }
+    button { margin-top: 20px; padding: 15px; font-size: 18px; width: 100%; background-color: #007BFF; color: white; border: none; border-radius: 8px; }
+    .resultado { margin-top: 30px; font-weight: bold; font-size: 18px; color: #2c3e50; }
+  </style>
+</head>
+<body>
+  <h1>Escala de Estresse Percebido (PSS-10)</h1>
+  <form id="pssForm">
+    <div id="perguntas"></div>
+    <button type="submit">Calcular Escore</button>
+  </form>
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    const perguntas = [
+      "1. Ficou aborrecido por algo inesperado?",
+      "2. Sentiu-se incapaz de controlar coisas importantes?",
+      "3. Sentiu-se nervoso ou estressado?",
+      "4. Esteve confiante para lidar com problemas pessoais?", // positivo
+      "5. Sentiu que as coisas aconteceram como esperado?", // positivo
+      "6. Sentiu que não conseguiria lidar com tudo?",
+      "7. Foi capaz de controlar irritações na sua vida?", // positivo
+      "8. Sentiu que tudo estava sob controle?", // positivo
+      "9. Esteve bravo por coisas fora do seu controle?",
+      "10. Sentiu que os problemas se acumularam demais?"
+    ];
+
+    const respostas = [
+      { texto: "Nunca", valor: 0 },
+      { texto: "Quase Nunca", valor: 1 },
+      { texto: "Às Vezes", valor: 2 },
+      { texto: "Pouco Frequente", valor: 3 },
+      { texto: "Muito Frequente", valor: 4 }
+    ];
+
+    const positivos = [3, 4, 6, 7]; // índice dos itens positivos (0-based)
+
+    const perguntasDiv = document.getElementById("perguntas");
+
+    perguntas.forEach((texto, i) => {
+      const label = document.createElement("label");
+      label.textContent = texto;
+      const select = document.createElement("select");
+      select.name = "q" + (i + 1);
+      select.id = "q" + (i + 1);
+      respostas.forEach(resp => {
+        const option = document.createElement("option");
+        option.value = resp.valor;
+        option.textContent = resp.texto;
+        select.appendChild(option);
+      });
+      perguntasDiv.appendChild(label);
+      perguntasDiv.appendChild(select);
+    });
+
+    document.getElementById("pssForm").addEventListener("submit", function(event) {
+      event.preventDefault();
+      let total = 0;
+      for (let i = 0; i < perguntas.length; i++) {
+        let valor = parseInt(document.getElementById("q" + (i + 1)).value);
+        if (positivos.includes(i)) {
+          valor = 4 - valor; // inversão
+        }
+        total += valor;
+      }
+
+      let interpretacao = "Maior escore = maior estresse percebido.";
+      if (total < 13) {
+        interpretacao += " Nível de estresse percebido: Baixo.";
+      } else if (total < 20) {
+        interpretacao += " Nível de estresse percebido: Moderado.";
+      } else {
+        interpretacao += " Nível de estresse percebido: Elevado.";
+      }
+
+      document.getElementById("resultado").innerHTML = `
+        <p><strong>Escore total:</strong> ${total} / 40</p>
+        <p>${interpretacao}</p>
+      `;
+    });
+  </script>
+</body>
+</html>
