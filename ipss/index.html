@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>I-PSS – Sintomas Prostáticos</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+    h1 { text-align: center; color: #004080; }
+    select { width: 100%; padding: 10px; margin-bottom: 20px; }
+    button { padding: 15px 30px; font-size: 18px; background-color: #007BFF; color: white; border: none; border-radius: 6px; width: 100%; }
+    .resultado { margin-top: 30px; font-weight: bold; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>Escore Internacional de Sintomas Prostáticos (I-PSS)</h1>
+  <form id="ipssForm">
+    <label>1. Sensação de não esvaziar completamente a bexiga após urinar:</label>
+    <select id="q1">
+      <option value="0">Nenhuma vez</option>
+      <option value="1">Menos que 1 vez em 5</option>
+      <option value="2">Menos que metade das vezes</option>
+      <option value="3">Metade das vezes</option>
+      <option value="4">Mais da metade das vezes</option>
+      <option value="5">Quase sempre</option>
+    </select>
+    <label>2. Urinar novamente em menos de 2h após urinar:</label>
+    <select id="q2">
+      <option value="0">Nenhuma vez</option>
+      <option value="1">Menos que 1 vez em 5</option>
+      <option value="2">Menos que metade das vezes</option>
+      <option value="3">Metade das vezes</option>
+      <option value="4">Mais da metade das vezes</option>
+      <option value="5">Quase sempre</option>
+    </select>
+    <label>3. Parar e recomeçar ao urinar:</label>
+    <select id="q3">
+      <option value="0">Nenhuma vez</option>
+      <option value="1">Menos que 1 vez em 5</option>
+      <option value="2">Menos que metade das vezes</option>
+      <option value="3">Metade das vezes</option>
+      <option value="4">Mais da metade das vezes</option>
+      <option value="5">Quase sempre</option>
+    </select>
+    <label>4. Dificuldade para conter a urina:</label>
+    <select id="q4">
+      <option value="0">Nenhuma vez</option>
+      <option value="1">Menos que 1 vez em 5</option>
+      <option value="2">Menos que metade das vezes</option>
+      <option value="3">Metade das vezes</option>
+      <option value="4">Mais da metade das vezes</option>
+      <option value="5">Quase sempre</option>
+    </select>
+    <label>5. Jato urinário fraco:</label>
+    <select id="q5">
+      <option value="0">Nenhuma vez</option>
+      <option value="1">Menos que 1 vez em 5</option>
+      <option value="2">Menos que metade das vezes</option>
+      <option value="3">Metade das vezes</option>
+      <option value="4">Mais da metade das vezes</option>
+      <option value="5">Quase sempre</option>
+    </select>
+    <label>6. Precisar fazer força para começar a urinar:</label>
+    <select id="q6">
+      <option value="0">Nenhuma vez</option>
+      <option value="1">Menos que 1 vez em 5</option>
+      <option value="2">Menos que metade das vezes</option>
+      <option value="3">Metade das vezes</option>
+      <option value="4">Mais da metade das vezes</option>
+    </select>
+    <label>7. Quantas vezes, em média, você levanta à noite para urinar?</label>
+    <select id="q7">
+      <option value="0">Nenhuma</option>
+      <option value="1">1 vez</option>
+      <option value="2">2 vezes</option>
+      <option value="3">3 vezes</option>
+      <option value="4">4 vezes</option>
+      <option value="5">5 vezes</option>
+    </select>
+    <button type="button" onclick="calcularIPSS()">Calcular Escore</button>
+  </form>
+  <div class="resultado" id="resultado"></div>
+  <script>
+    function calcularIPSS() {
+      let total = 0;
+      for (let i = 1; i <= 7; i++) {
+        total += parseInt(document.getElementById("q" + i).value);
+      }
+      let interpretacao = "";
+      if (total <= 7) interpretacao = "Sintomas LEVES";
+      else if (total <= 19) interpretacao = "Sintomas MODERADOS";
+      else interpretacao = "Sintomas GRAVES";
+      document.getElementById("resultado").innerHTML = `
+        <p><strong>Escore total:</strong> ${total} / 35</p>
+        <p><strong>Interpretação:</strong> ${interpretacao}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
